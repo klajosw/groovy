@@ -1,5 +1,5 @@
 /*
-//Created by klajosw@gmail.com
+//Created by klajosw@gmail.com  // https://klajosw.blogspot.com/
 HU:   ODI12c project létrehozása ODIstudio-ban groovy script editort elérése a menűből Tools>Groovy>New Script
 ENG : Create Project ODI12c Groovy Script in ODIStudio menu Tools>Groovy>New Script
 // ----

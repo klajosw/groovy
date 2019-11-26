@@ -28,4 +28,6 @@ groovy kl_minta.groovy
 
 
 
--- Blog info : https://klajosw.blogspot.com/2019/05/groovy-alap-1.html
+Blog : https://klajosw.blogspot.com/2019/05/groovy-alap-1.html
+
+More info : https://klajosw.github.io/groovy/

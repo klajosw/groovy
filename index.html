@@ -1,82 +1,70 @@
-<html lang="hu"><head></head><body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+   <head>
+      <title></title>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<br />
-<div class="separator" style="clear: both; text-align: center;">
-   <a href="https://1.bp.blogspot.com/-9r_VYIHDCss/XZJreclWQRI/AAAAAAAAXLM/cHV8x59Oficfk-W0ABe9l6ZkAooUetsKQCLcBGAsYHQ/s1600/bi_03.jpg" 
-           imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
-     <img border="0" data-original-height="536" data-original-width="548" height="390" 
-      src="https://1.bp.blogspot.com/-9r_VYIHDCss/XZJreclWQRI/AAAAAAAAXLM/cHV8x59Oficfk-W0ABe9l6ZkAooUetsKQCLcBGAsYHQ/s1600/bi_03.jpg" 
-       width="400" />
-   </a>
-</div>
-<br />
-<br />
-<br />
+      <script type="text/javascript" src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 
 
-<h2>  Groovy programozási minták /  Groovy examples </h2>
- <br />
-<h3>
-  ODI (Oracle data Integratot) script  
-</h3> 
- <br />
-<h3>
-  SOAP-UI script  
-</h3>   
-  <br />
- <h3>
-  File kezelő, elemző, feldolgozó script  
-</h3>   
-  <br />  
- <h3>
-  Adatbázis kezelő, elemző, feldolgozó script  
-</h3>   
-  <br />
-<h3> HU : telepítés / ENG: Install </h3>
-Csomagold ki egy program könyvtárba.
-Ennek a könnyvtárnak az elérési utját állítsd be GROOVY_HOME környezeti változónak.
-A PATH környezeti változót bővítsd ki a %GROOVY_HOME%/bin bejegyzéssel.
+      <script type="text/javascript">
 
- <br />
+         var map = null; 
+         var pinInfobox = null;        
 
-<h3>Fordítás</h3>
-groovyc Hello.groovy
+         function GetMap()
+         {
+            map = new Microsoft.Maps.Map(document.getElementById("myMap"), {
+			credentials: "Artw-2oFM30u85MXt1TzrEqCt4lafpw7rDnPdcRjE_onLFq1FxFkLvlF0TGhkE-F"  //kl http://mierdekel.hu DEV/okt				 
+			}); 
 
--- vagy tömeges forditás maszk alapján
+            // Define the pushpin location
+            var loc = new Microsoft.Maps.Location(47.4274747,19.2058965);
+            
+            // Center the map on the location
+            map.setView({center: loc, zoom: 15});
+            
+            // Add a pin to the center of the map
+            var pin = new Microsoft.Maps.Pushpin(loc, {text: '1'}); 
 
-groovyc *.groovy *.java
+            // Create the infobox for the pushpin
+            pinInfobox = new Microsoft.Maps.Infobox(pin.getLocation(), 
+                {title: 'Kecskeméti Lajos', 
+                 description: 'Ez egy információs tartalom\n a térképi ponthoz kapcsolódva.', 
+                 visible: false, 
+                 offset: new Microsoft.Maps.Point(0,15)});
 
- <br />
+            // Add handler for the pushpin click event.
+            Microsoft.Maps.Events.addHandler(pin, 'click', displayInfobox);
 
-<h3> Futtatás </h3>
-java -cp %GROOVY_HOME%/embeddable/groovy-all-2.0.0.jar;. kl_class "Kecskemeti Lajos"
+            // Hide the infobox when the map is moved.
+            Microsoft.Maps.Events.addHandler(map, 'viewchange', hideInfobox);
 
- 
-<br />
 
-<h3> Groovy használat előnye </h3>
----- egy lépésbe futtaható
-groovy kl_minta.groovy
+            // Add the pushpin and infobox to the map
+            map.entities.push(pin);
+            map.entities.push(pinInfobox);
 
-<br /><br /><br />
+         }
 
--- Blog info : https://klajosw.blogspot.com/2019/05/groovy-alap-1.html
- <br /><br /><br />
-   
-    <br />
+         function displayInfobox(e)
+         {
+            pinInfobox.setOptions({ visible:true });
+         }                    
 
-   WEB info :    
-  <a href="https://sites.google.com/site/klajosw/</a>&nbsp;&nbsp; &nbsp;           
-  <a href="https://klajosw.blogspot.hu/">https://klajosw.blogspot.hu/</a>&nbsp;&nbsp; &nbsp;
-  <a href="https://klajosw.blogspot.hu/">https://klajosw.blogspot.hu/</a>&nbsp;&nbsp; &nbsp;
-  <a href="https://www.linkedin.com/in/klajosw/">Linkedin</a>&nbsp;&nbsp; &nbsp;
-  <a href="https://github.com/klajosw">GitHub</a>&nbsp;&nbsp; &nbsp;
-  <a href="https://www.pythonanywhere.com/user/klajosw/">Python_aw</a>&nbsp;&nbsp; &nbsp;
-  <a href="https://nbviewer.jupyter.org/github/klajosw/python/tree/master/">JNB</a>&nbsp;&nbsp; &nbsp;
-  <a href="https://docs.microsoft.com/hu-hu/users/lajoskecskemti-4995">microsoft.com</a>&nbsp;&nbsp; &nbsp;
-                                                                      
-<br />
-<br />
-<br />
-   
-<body></html>
+         function hideInfobox(e)
+         {
+            pinInfobox.setOptions({ visible: false });
+         }
+      </script>
+<style>
+    html, body, #myMap, .leaflet-container { height: 100%; margin: 0; }
+    body {
+        font-family: Arial, sans-serif;
+    }     
+</style>
+
+   </head>
+   <body onload="GetMap();">
+<div id='myMap'></div>       
+</html>
